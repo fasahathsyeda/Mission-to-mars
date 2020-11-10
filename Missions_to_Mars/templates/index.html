@@ -8,6 +8,7 @@
   <title>Mission to Mars</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="../style/style1.css">
 
 </head>
 
@@ -15,7 +16,7 @@
   <div class="container">
 
     <div class="jumbotron text-center">
-      <h1>Mission to Mars</h1>
+      <h1 style="font-weight: bold;">Mission to Mars</h1>
       <p>
         <a class="btn btn-primary btn-lg " href="/scrape" role="button">Scrape new Mars Data</a>
       </p>
@@ -25,7 +26,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <h2>This is the latest Mars news.</h2>
+          <h2 style="font-weight: bold;">Latest Mars news</h2>
           <h4>{{mars.news_date}}</h4>
           <h4> {{ mars.news_title }}</h4>
           <p> {{mars.news_paragraph}} </p>
@@ -36,11 +37,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-7">
-          <h2>This is the featured image from JPL.</h2>
+          <h2 style="font-weight: bold;">Featured Mars image</h2>
           <img src="{{mars.featured_image_url}}" class="img-responsive" alt="Mars featured image" />
         </div>     
         <div class="col-md-5">
-          <h3>Mars facts</h3>
+          <h3 style="font-weight: bold;">Mars facts</h3>
           {{mars.mars_table | safe }}
         </div>
       </div>
@@ -50,15 +51,25 @@
 
   <div class="row mt-5">
     <div class="col-md-12 text-center">
-        <h2>Mars Hemispheres</h2><hr>
+        <h2 style="font-weight: bold;">Mars Hemispheres</h2><hr>
     </div>
 
-    {% for hemi in mars.hemisphere_image_urls %}
+    {% for hemis in mars.mars_hemis %}
+    <div class="card">
     <div class="col-md-6">
+      
       <figure class="figure">
-        <img class="figure-img img-fluid my-1" src="{{ mars.mars_hemis.img_url }}">
-        <figcaption class="figure-caption"><h4>{{ mars.mars_hemis.title }}</h4></figcaption>
+        <span class="border border-primary">
+          <div class="card" style="width: 100%;border:1;"> 
+            <img class="figure-img img-fluid my-1 image-responsive card-img-top " src="{{ hemis.img_url }}" style="padding-left:10px;width:100%;border:1;">
+              <div class="card-body">
+                <figcaption class="figure-caption"><h4 style="padding-left:10px;font-weight: bold;">{{ hemis.title }}</h4></figcaption>
+              </div>
+          </div>
+        </span>
       </figure>
+    
+    </div>
     </div>
     {% endfor %}
   </div>

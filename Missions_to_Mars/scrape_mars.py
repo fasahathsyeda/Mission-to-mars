@@ -75,9 +75,9 @@ def mars_fact():
     try:
         facts_df = pd.read_html(mars_facts_url)[0]
         facts_df.columns=['Description','Mars']
-        facts_df.set_index('Description')
+        facts_df.set_index('Description',inplace=True)
         mars_table=facts_df.to_html("table.html")
-        mars_table=facts_df.to_html(classes = "table table-hover table-dark")
+        mars_table=facts_df.to_html(classes = "table table-hover table-dark table-box")
     except AttributeError:
         return None
 

@@ -25,7 +25,7 @@ def scrape():
         mars_data,
         upsert=True
     )
-    return "Scraping complete"
+    return "Scrapping complete. Go back and refresh the page."
 
 
 if __name__ == "__main__":

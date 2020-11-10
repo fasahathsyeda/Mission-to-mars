@@ -14,13 +14,18 @@ def scrape_all_content():
 
     news_title, news_para, news_date=mars_news(browser)
     featured_image_url=featured_image(browser)
+    mars_table=mars_fact()
+    mars_hemis=mars_hemisphere(browser)
 
 
     # Create a dictionary for all of the scraped data
     mars_data = {
         "news_title":news_title,
         "news_paragraph":news_para,
-        "news_date":news_date
+        "news_date":news_date,
+        "featured_image_url":featured_image_url,
+        "mars_table":mars_table,
+        "mars_hemis":mars_hemis
     }
 
     browser.quit()
@@ -64,6 +69,49 @@ def featured_image(browser):
         return None
     
     return featured_img_url
+
+def mars_fact():
+    mars_facts_url='https://space-facts.com/mars/'
+    try:
+        facts_df = pd.read_html(mars_facts_url)[0]
+        facts_df.columns=['Description','Mars']
+        facts_df.set_index('Description')
+        mars_table=facts_df.to_html("table.html")
+        mars_table=facts_df.to_html(classes = "table table-hover table-dark")
+    except AttributeError:
+        return None
+
+    return mars_table
+
+def mars_hemisphere(browser):
+    hmsphr_url='https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    browser.visit(hmsphr_url)
+    hmsphr_html = browser.html
+    hmsphr_soup = BeautifulSoup(hmsphr_html,'html.parser')
+    try:
+        mars_hemis=[]
+        # loop through the four tags and load the data to the dictionary
+
+        for i in range (4):
+            time.sleep(5)
+            images = browser.find_by_tag('h3')
+            print(images)
+            images[i].click()
+            html = browser.html
+            soup = BeautifulSoup(html, 'html.parser')
+            partial_url = soup.find("img", class_="wide-image")["src"]
+            img_title = soup.find("h2",class_="title").text
+            img_url = 'https://astrogeology.usgs.gov'+ partial_url
+            dictionary={"title":img_title,"img_url":img_url}
+            mars_hemis.append(dictionary)
+            browser.back()
+    except AttributeError:
+        return None
+
+    return mars_hemis
+    
+
+    
 
 
 

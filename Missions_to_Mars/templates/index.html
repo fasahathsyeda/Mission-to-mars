@@ -14,10 +14,10 @@
 <body>
   <div class="container">
 
-    <div class="jumbotron">
+    <div class="jumbotron text-center">
       <h1>Mission to Mars</h1>
       <p>
-        <a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape new Mars Data</a>
+        <a class="btn btn-primary btn-lg " href="/scrape" role="button">Scrape new Mars Data</a>
       </p>
 
     
@@ -32,16 +32,47 @@
         </div>
       </div>
     </div>
+    
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-7">
+          <h2>This is the featured image from JPL.</h2>
+          <img src="{{mars.featured_image_url}}" class="img-responsive" alt="Mars featured image" />
+        </div>     
+        <div class="col-md-5">
+          <h3>Mars facts</h3>
+          {{mars.mars_table | safe }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12 text-center">
+        <h2>Mars Hemispheres</h2><hr>
+    </div>
+
+    {% for hemi in mars.hemisphere_image_urls %}
+    <div class="col-md-6">
+      <figure class="figure">
+        <img class="figure-img img-fluid my-1" src="{{ mars.mars_hemis.img_url }}">
+        <figcaption class="figure-caption"><h4>{{ mars.mars_hemis.title }}</h4></figcaption>
+      </figure>
+    </div>
+    {% endfor %}
+  </div>
+  
 
 
 
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous">
-    </script>
+  </script>
 
 </body>
 
